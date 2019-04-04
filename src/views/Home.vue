@@ -16,7 +16,7 @@ export default {
     if (!this.$store.getters.token) {
       this.$router.push({ path: '/login' });
     } else {
-      this.$router.push({ path: '/login' });
+      this.$router.push({ path: '/' });
     }
   }
 }
