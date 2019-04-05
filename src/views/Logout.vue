@@ -1,14 +1,13 @@
 <template>
-    <div class="redirect">
+    <div id="logout">
 
     </div>
 </template>
 
 <script>
 export default {
-    name: 'redirect',
     created() {
-        this.$store.dispatch('getToken');
+        sessionStorage.removeItem('token');
         this.$router.push({ path: '/' });
     }
 }
