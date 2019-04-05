@@ -1,29 +1,48 @@
 <template>
-  <div class="content-holder">
-    <div class="back" @click="$emit('previous-page')">
-      <i class="fa fa-chevron-left fa-3x" aria-hidden="true"></i>
-    </div>
-    <div class="img-container">
-      <img :src="src" alt="oopppa(((">
-    </div>
-    <div class="closer" @click="$emit('close')">
-      <div>
-        <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+  <div class="overlay">
+    <div class="content-holder">
+      <div class="back" @click="changeImage(false)">
+        <i class="fa fa-chevron-left fa-3x" aria-hidden="true"></i>
+      </div>
+      <div class="img-container">
+        <img :src="src" alt="oopppa(((">
+      </div>
+      <div class="closer" @click="setShowGallery(false)">
+        <div>
+          <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="forvard" @click="changeImage(true)">
+        <i class="fa fa-chevron-right fa-3x" aria-hidden="true"></i>
       </div>
     </div>
-    <div class="forvard" @click="$emit('next-page')">
-      <i class="fa fa-chevron-right fa-3x" aria-hidden="true"></i>
-    </div>
-  </div>
+  </div> 
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-  props: ["src"]
+  name: "ImageShowOverlay",
+  props: ["src"],
+  methods: {
+    ...mapActions([
+      'setShowGallery',
+      'changeImage'
+    ])
+  }
 };
 </script>
 
 <style>
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed!important;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .5);    
+}
 .content-holder {
     position: relative;
     margin: auto;
@@ -44,6 +63,8 @@ export default {
     grid-row-end: 21;   
 }
 .img-container img{
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 .closer {

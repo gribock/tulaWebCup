@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     token: '',
     userName: '',
-    galleryItems: []
+    galleryItems: [],
+    showOverlay: false,
+    showedImage: 0
   },
   mutations: {
     GET_TOKEN (state) {
@@ -23,6 +25,24 @@ export default new Vuex.Store({
     },
     GET_GALLERY_ITEMS (state, payload) {
       state.galleryItems = payload;
+    },
+    CHANGE_SHOWGALLERY (state, payload) {
+      state.showOverlay = payload;
+    },
+    SET_SHOWEDIMAGE (state, payload) {
+      state.showedImage = payload;
+    },
+    CHANGE_IMAGE (state, payload) {
+      const max = state.galleryItems.length - 1;
+      if(payload) {
+        if(state.showedImage < max) {
+          state.showedImage++;
+        }
+      } else {
+        if(state.showedImage > 0) {
+          state.showedImage--;
+        }
+      }
     }
   },
   actions: {
@@ -45,11 +65,22 @@ export default new Vuex.Store({
         ).then((response) => {
           commit('GET_GALLERY_ITEMS', response.data.items);
         });
+    },
+    setShowGallery({ commit }, action) {
+      commit('CHANGE_SHOWGALLERY', action);
+    },
+    changeImage({ commit }, direction) {
+      commit('CHANGE_IMAGE', direction);
+    },
+    setShowedImage({ commit }, index) {
+      commit('SET_SHOWEDIMAGE', index);
     }
   },
   getters: {
     token: state => state.token,
     userName: state => state.userName,
-    galleryItems: state => state.galleryItems
+    galleryItems: state => state.galleryItems,
+    showOverlay: state => state.showOverlay,
+    showedImage: state => state.showedImage
   }
 })

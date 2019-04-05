@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <i class="fa fa-chevron-left fa-3x" aria-hidden="true"></i>
       <router-link to="/">Home</router-link> |
       <router-link v-if="!token" to="/login">Login</router-link>
       <router-link v-else to="/logout">Logout</router-link>
