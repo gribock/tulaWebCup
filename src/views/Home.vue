@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <span>{{ userName }}</span>
+    Приветствую тебя, <span class="username">{{ userName }}!</span>
     <div id="main">
       <div class="prevue" v-for="item in galleryItems" 
            :key="item.index" @click="setShowGallery(true);setShowedImage(galleryItems.indexOf(item))">
@@ -67,6 +66,9 @@ export default {
 }
 .prevue:hover {
     opacity: .7;
+}
+.username {
+  color: darkblue;
 }
 </style>
 
