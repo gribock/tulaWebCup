@@ -60,7 +60,7 @@ export default new Vuex.Store({
     },
     getGalleryItems({ commit, state }) {
       axios.get(
-        'https://cloud-api.yandex.net:443/v1/disk/resources/files?fields=items.file&media_type=image', 
+        'https://cloud-api.yandex.net:443/v1/disk/resources/files?fields=items.file%2Citems.preview&limit=80&media_type=image&preview_crop=true&preview_size=M', 
         { headers: { Authorization: `OAuth ${state.token}` } }
         ).then((response) => {
           commit('GET_GALLERY_ITEMS', response.data.items);

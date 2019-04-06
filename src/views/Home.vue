@@ -5,7 +5,7 @@
     <div id="main">
       <div class="prevue" v-for="item in galleryItems" 
            :key="item.index" @click="setShowGallery(true);setShowedImage(galleryItems.indexOf(item))">
-        <img :src="`${item.file}`"/>
+        <img :src="`${item.preview}`"/>
       </div>
     </div>
     <ImageShowOverlay v-if="showOverlay" :src="galleryItems[showedImage].file" />
