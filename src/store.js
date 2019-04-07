@@ -9,6 +9,8 @@ export default new Vuex.Store({
     token: 'AQAAAAAzSegnAAWXyixdLzNUF0vbrbFPTOiGs3A',
     userName: '',
     galleryItems: [],
+    showedGalleryItems: [],
+    quantityShowedItems: 20,
     showOverlay: false,
     showedImage: 0
   },
@@ -43,6 +45,20 @@ export default new Vuex.Store({
           state.showedImage--;
         }
       }
+    },
+    UPDATE_SHOWED_GALLERY_ITEMS (state) {
+      const slised = state.quantityShowedItems;
+      state.showedGalleryItems = state.galleryItems.slice(0, slised);
+    },
+    INCREASE_QUANTITY (state) {
+      const modulo = state.galleryItems.length % 20;
+      const difference = state.galleryItems.length - state.quantityShowedItems;
+      if((state.quantityShowedItems <= state.galleryItems.length - 20)
+          && (difference >= 20)) {
+        state.quantityShowedItems += 20; //scare javascript
+      } else if(difference < 20) {
+        state.quantityShowedItems += modulo;
+      }
     }
   },
   actions: {
@@ -64,6 +80,7 @@ export default new Vuex.Store({
         { headers: { Authorization: `OAuth ${state.token}` } }
         ).then((response) => {
           commit('GET_GALLERY_ITEMS', response.data.items);
+          commit('UPDATE_SHOWED_GALLERY_ITEMS');
         });
     },
     setShowGallery({ commit }, action) {
@@ -74,12 +91,17 @@ export default new Vuex.Store({
     },
     setShowedImage({ commit }, index) {
       commit('SET_SHOWEDIMAGE', index);
+    },
+    increaseQuantity({ commit }) {
+      commit('INCREASE_QUANTITY');
+      commit('UPDATE_SHOWED_GALLERY_ITEMS');
     }
   },
   getters: {
     token: state => state.token,
     userName: state => state.userName,
     galleryItems: state => state.galleryItems,
+    showedGalleryItems: state => state.showedGalleryItems,
     showOverlay: state => state.showOverlay,
     showedImage: state => state.showedImage
   }

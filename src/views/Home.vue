@@ -2,12 +2,13 @@
   <div class="home">
     Приветствую тебя, <span class="username">{{ userName }}!</span>
     <div id="main">
-      <div class="prevue" v-for="item in galleryItems" 
-           :key="item.index" @click="setShowGallery(true);setShowedImage(galleryItems.indexOf(item))">
+      <div class="prevue" v-for="item in showedGalleryItems" 
+           :key="item.index" @click="setShowGallery(true);setShowedImage(showedGalleryItems.indexOf(item))">
         <img :src="`${item.preview}`"/>
       </div>
+      <button @click="increaseQuantity()">Показать больше</button>
     </div>
-    <ImageShowOverlay v-if="showOverlay" :src="galleryItems[showedImage].file" />
+    <ImageShowOverlay v-if="showOverlay" :src="showedGalleryItems[showedImage].file" />
   </div>
 </template>
 
@@ -25,7 +26,7 @@ export default {
     ...mapGetters([
       'token',
       'userName',
-      'galleryItems',
+      'showedGalleryItems',
       'showOverlay',
       'showedImage'
     ])
@@ -33,7 +34,8 @@ export default {
   methods:{
     ...mapActions([
       'setShowGallery',
-      'setShowedImage'
+      'setShowedImage',
+      'increaseQuantity'
     ])
   },
   created() {
@@ -41,11 +43,12 @@ export default {
     if (!this.$store.getters.token) {
       this.$router.push({ path: '/login' });
       return;
-    } else {
-      this.$router.push({ path: '/' });
-    }
+    } //else {
+    //   this.$router.push({ path: '/' });
+    // }
     this.$store.dispatch('getDiskInfo');
     this.$store.dispatch('getGalleryItems');
+    
   }
 }
 </script>
