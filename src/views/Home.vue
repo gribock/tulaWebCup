@@ -6,7 +6,11 @@
            :key="item.index" @click="setShowGallery(true);setShowedImage(showedGalleryItems.indexOf(item))">
         <img :src="`${item.preview}`"/>
       </div>
-      <button @click="increaseQuantity()">Показать больше</button>
+    </div>
+    <div class="tt">
+      <a class="button" v-if="showAddButton" @click="increaseQuantity()">
+        Показать больше
+      </a>
     </div>
     <ImageShowOverlay v-if="showOverlay" :src="showedGalleryItems[showedImage].file" />
   </div>
@@ -28,7 +32,8 @@ export default {
       'userName',
       'showedGalleryItems',
       'showOverlay',
-      'showedImage'
+      'showedImage',
+      'showAddButton'
     ])
   },
   methods:{
@@ -73,5 +78,38 @@ export default {
 .username {
   color: darkblue;
 }
+.tt {
+  margin: 20px;
+}
+.button{
+  text-decoration:none; text-align:center; 
+  padding:11px 32px; 
+  border:none; 
+  -webkit-border-radius:14px;
+  -moz-border-radius:14px; 
+  border-radius: 14px; 
+  font:12px Arial, Helvetica, sans-serif; 
+  font-weight:bold; 
+  color:#ffffff; 
+  background-color:#148f04; 
+  background-image: -moz-linear-gradient(top, #148f04 0%, #158f04 100%); 
+  background-image: -webkit-linear-gradient(top, #148f04 0%, #158f04 100%); 
+  background-image: -o-linear-gradient(top, #148f04 0%, #158f04 100%); 
+  background-image: -ms-linear-gradient(top, #148f04 0% ,#158f04 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#158f04', endColorstr='#158f04',GradientType=0 ); 
+  background-image: linear-gradient(top, #148f04 0% ,#158f04 100%);   
+}
+.button:hover{
+  padding:11px 32px; 
+  border:none; 
+  -webkit-border-radius:14px;
+  -moz-border-radius:14px; 
+  border-radius: 14px; 
+  font:12px Arial, Helvetica, sans-serif; 
+  font-weight:bold; 
+  color:#ffffff; 
+  background:#052401;  
+}
+
 </style>
 

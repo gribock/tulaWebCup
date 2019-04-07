@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    token: 'AQAAAAAzSegnAAWXyixdLzNUF0vbrbFPTOiGs3A',
+    token: '',
     userName: '',
     galleryItems: [],
     showedGalleryItems: [],
@@ -16,11 +16,11 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_TOKEN (state) {
-      //state.token = /access_token=([^&]+)/.exec(document.location.hash)[1];
+      state.token = /access_token=([^&]+)/.exec(document.location.hash)[1];
       sessionStorage.setItem('token', state.token);
     },
     UPDATE_TOKEN (state) {
-      //state.token = sessionStorage.getItem('token');
+      state.token = sessionStorage.getItem('token');
     },
     UPDATE_USERNAME (state, payload) {
       state.userName = payload;
@@ -103,6 +103,9 @@ export default new Vuex.Store({
     galleryItems: state => state.galleryItems,
     showedGalleryItems: state => state.showedGalleryItems,
     showOverlay: state => state.showOverlay,
-    showedImage: state => state.showedImage
+    showedImage: state => state.showedImage,
+    showAddButton: state => {
+        return state.galleryItems.length != state.showedGalleryItems.length;
+    }
   }
 })
